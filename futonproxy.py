@@ -170,7 +170,13 @@ def main():
     if not os.path.isdir(dname):
         parser.error("%r does not exist." % dname)
 
-    app = FutonProxy(opts.couch, dname)
+    couch = opts.couch
+    if couch.startswith("http://"):
+        couch = couch[7:]
+    elif couch.startswith("https://"):
+        couch = couch[8:]
+
+    app = FutonProxy(couch, dname)
     server = make_server(opts.address, opts.port, app)
     log.info("Starting server at http://%s:%d" % (opts.address, opts.port))
     try:
