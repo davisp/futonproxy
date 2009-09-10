@@ -37,6 +37,17 @@ class FutonProxy(object):
         self.dname = dname
     
     def __call__(self, environ, start_response):
+        if environ['PATH_INFO'] == '/_utils':
+            url = ''.join([
+                environ['wsgi.url_scheme'],
+                '://',
+                environ.get('HTTP_HOST', environ['SERVER_NAME']),
+                '/_utils/'
+            ])
+            start_response('301 MOVED PERMANENTLY', [
+                ('Location', url)
+            ])
+            return ['Its not here!\n']
         if environ['PATH_INFO'].startswith("/_utils"):
             return self.send_file(environ, start_response)
         return self.proxy_request(environ, start_response)
