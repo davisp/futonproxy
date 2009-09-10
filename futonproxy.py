@@ -175,6 +175,7 @@ def main():
         couch = couch[7:]
     elif couch.startswith("https://"):
         couch = couch[8:]
+    couch = couch.rstrip('/')
 
     app = FutonProxy(couch, dname)
     server = make_server(opts.address, opts.port, app)
