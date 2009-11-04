@@ -70,7 +70,7 @@ class FutonProxy(object):
             ('Content-Type', ctype),
             ('Content-Size', str(os.stat(path).st_size)),
             # Crush caching.
-            ('Cache-Control', 'no-cahe'),
+            ('Cache-Control', 'no-cache'),
             ('Expires', 'Fri, 01 Jan 1990 00:00:00 GMT'),
             ('Pragma', 'no-cache'),
             ('ETag', uuid.uuid4().hex.upper())
